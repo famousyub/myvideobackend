@@ -1,5 +1,6 @@
 package com.example.polls.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -184,17 +185,54 @@ public class Formation {
 
 	@Column(name="mediadescription")
     private String description;
+	
+	private String category ;
+	
 
-    @Column(name="searchtext")
+    public String getCategory() {
+		return category;
+	}
+
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+
+
+	@Column(name="searchtext")
     private String searchtext;
     
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "formation")
     private List<Wishlist> wishListList;
     
-
     
-    @Lob
+    
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "formation")
+    private List<Favoutite> favourite = new ArrayList<>();
+    
+
+    public void addChoice(Favoutite choice) {
+    	favourite.add(choice);
+        choice.setFormation(this);
+    }
+    
+    public List<Favoutite> getFavourite() {
+		return favourite;
+	}
+
+
+
+	public void setFavourite(List<Favoutite> favourite) {
+		this.favourite = favourite;
+	}
+
+
+
+	@Lob
     @Column(name="mediavideo")
     private byte[] mediavideo;
     

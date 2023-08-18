@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.polls.model.Formation;
-
+import com.example.polls.payload.FormationResponse;
 import com.example.polls.payload.MediaResponse;
 import com.example.polls.payload.MediaSharePayload;
 import com.example.polls.repository.FormationRepository;
@@ -118,10 +118,10 @@ private final String UPLOAD_DIR = "uploads/";
     	
     	
     	List<Formation> medias = mediaShareRepository.findAll();
-    	List<MediaResponse> mediares = new ArrayList<>();
+    	List<FormationResponse> mediares = new ArrayList<>();
     	
     	for (Formation media : medias) {
-    		MediaResponse mere = new MediaResponse();
+    		FormationResponse mere = new FormationResponse();
 
         	String url_ = "http://localhost:8081/api/videos/formation/" + media.getId();
         	mere.setUrl_(url_);
@@ -132,8 +132,10 @@ private final String UPLOAD_DIR = "uploads/";
         	mere.setTag(media.getTag());
         	
         	mere.setTagy(media.getMimeType());	
-        	
+        	mere.setCat(media.getCategory());
         	mediares.add(mere);
+        	
+        	
 		}
     	
     	return ResponseEntity.ok().body(mediares);

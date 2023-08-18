@@ -13,10 +13,13 @@
     <h2>Create Formation</h2>
     <form th:action="@{/admin/videos/uploadformation}" method="post" enctype="multipart/form-data">
         <input type="file" name="image" accept="video/*" required/><br/>
-        <input type="text" name="tag" placeholder="Tag" required/><br/>
-        <input type="text" name="description" placeholder="Description" required/><br/>
-        <input type="text" name="searchText" placeholder="Search Text" required/><br/>
-        <input type="text" name="thumbnail" placeholder="Thumbnail URL" required/><br/>
+          <label for="tag" class="col-form-label">tag</label> <input type="text" name="tag" placeholder="Tag" required/><br/>
+        <label for="tag" class="col-form-label">description</label> <input type="text" name="description" placeholder="Description" required/><br/>
+        <label for="tag" class="col-form-label">searchText</label><input type="text" name="searchText" placeholder="Search Text" required/><br/>
+        <label for="tag" class="col-form-label">thumbnail</label><input type="text" name="thumbnail" placeholder="Thumbnail URL" required/><br/>
+           <div class="form-group col-md-8">
+                            <label for="tag" class="col-form-label">category</label> <input type="text" name="category" class="form-control" id="category" placeholder="category" required> 
+                        </div>
         <button type="submit">Upload</button>
     </form>
     <p th:text="${msg}"></p>

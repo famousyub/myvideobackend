@@ -86,7 +86,7 @@ public class AdminControler {
  
  
  @PostMapping("/uploadformation")
-    public String uploadVideo(Model model,@RequestParam("image") MultipartFile file , @RequestParam("tag") String tag , @RequestParam("description") String description  , @RequestParam("thumbnail") String thumbnail , @RequestParam("searchText") String searchText  ) throws IOException {
+    public String uploadVideo(Model model,@RequestParam("image") MultipartFile file , @RequestParam("tag") String tag , @RequestParam("description") String description  , @RequestParam("thumbnail") String thumbnail , @RequestParam("searchText") String searchText ,@RequestParam("category") String cat ) throws IOException {
         if (file.isEmpty()) {
         	  model.addAttribute("msg", "error uploading");
             return "cvideo"  ;
@@ -101,12 +101,13 @@ public class AdminControler {
         Formation video = new Formation();
         video.setDescription(description);
         video.setMediavideoContentType(mimeType);
-        video.setMimeType(mimeType);
+        video.setMimeType(originalFileName);
         video.setTag(tag);
         video.setMediavideo(file.getBytes());
         video.setName(originalFileName);
         video.setSearchtext(searchText);
         video.setThumbnail(thumbnail);
+        video.setCategory(cat);
         
         formationRepository.save(video);
 
