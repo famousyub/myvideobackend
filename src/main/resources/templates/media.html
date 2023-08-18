@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PixelTrice</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h2>Create Formation</h2>
+    <form th:action="@{/admin/videos/uploadmedia}" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="video/*" required/><br/>
+        <input type="text" name="tag" placeholder="Tag" required/><br/>
+        <input type="text" name="description" placeholder="Description" required/><br/>
+        <input type="text" name="searchText" placeholder="Search Text" required/><br/>
+        <input type="text" name="thumbnail" placeholder="Thumbnail URL" required/><br/>
+        <button type="submit">Upload</button>
+    </form>
+    <p th:text="${msg}"></p>
+</body>
+</html>

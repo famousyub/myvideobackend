@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Media Shares</title>
+</head>
+<body>
+    <h1>Media Shares</h1>
+    <table>
+        <tr th:each="media : ${mediaList}">
+            <td th:text="${media.id}"></td>
+            <td th:text="${media.mediatag}"></td>
+            <td th:text="${media.mediatagy}"></td>
+            <td th:text="${media.mediadescription}"></td>
+            <!-- Add more columns as needed -->
+        </tr>
+    </table>
+</body>
+</html>
