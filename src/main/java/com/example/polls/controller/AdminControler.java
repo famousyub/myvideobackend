@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.polls.model.BeginVid;
 import com.example.polls.model.Formation;
 import com.example.polls.model.Mediashare;
+import com.example.polls.model.User;
 import com.example.polls.model.VideoEvent;
 import com.example.polls.payload.FileUploadResponse;
 import com.example.polls.payload.FormationPayload;
@@ -44,6 +46,7 @@ import com.example.polls.payload.MediaSharePayload;
 import com.example.polls.payload.Response;
 import com.example.polls.repository.FormationRepository;
 import com.example.polls.repository.MediaShareRepository;
+import com.example.polls.repository.UserRepository;
 import com.example.polls.repository.VideoEventRepository;
 
 import org.springframework.ui.Model;
@@ -65,6 +68,83 @@ public class AdminControler {
     
     @Autowired
     private VideoEventRepository eventRepository;
+    
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    
+    
+    @GetMapping("/signup")
+    public String showSignUpForm(User user) {
+        return "add-user";
+    }
+    
+    @PostMapping("/adduser")
+    public String addUser(@Valid User user, BindingResult result, Model model) {
+    	user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (result.hasErrors()) {
+            return "add-user";
+        }
+        
+        userRepository.save(user);
+        return "redirect:/admin/videos/index";
+    }
+    
+    @PostMapping("/addnewuser")
+    public ResponseEntity<?> addnewsuser()
+    {
+    	
+    	return ResponseEntity.ok().body("added succesfully");
+    	
+    }
+    
+    @GetMapping("/del/delete/{id}")
+    public String deletefUser(@PathVariable("id") long id, Model model) {
+        User user = userRepository.findById(id)
+          .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        userRepository.delete(user);
+        return "redirect:/admin/videos/index";
+    }
+    
+    @GetMapping("/edit/{id}")
+    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+        User user = userRepository.findById(id)
+          .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        
+        model.addAttribute("user", user);
+        return "update-user";
+    }
+
+    
+    @PostMapping("/update/{id}")
+    public String updateUser(@PathVariable("id") long id, @Valid User user, 
+      BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            user.setId(id);
+            return "update-user";
+        }
+            
+        userRepository.save(user);
+        return "redirect:/admin/videos/index";
+    }
+        
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") long id, Model model) {
+        User user = userRepository.findById(id)
+          .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        userRepository.delete(user);
+        return "redirect:/admin/videos/index";
+    }
+    
+    @GetMapping("/index")
+    public String showUserList(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        return "user";
+    }
     
     @GetMapping
      public String navs() {

@@ -57,7 +57,7 @@ public class ClientInterfaceController {
 	
 	
 	@GetMapping("/downloadFile/{id}")
-    public ResponseEntity < Resource > downloadFile(@PathVariable Long id, HttpServletRequest request) {
+    public ResponseEntity < ? > downloadFile(@PathVariable Long id, HttpServletRequest request) {
         // Load file as Resource
         Formation databaseFile = formationRepository.findById(id).get();
 
