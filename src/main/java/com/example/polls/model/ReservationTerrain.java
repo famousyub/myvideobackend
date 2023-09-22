@@ -7,19 +7,25 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
 @Entity
-@Table(name = "reservationterrain")
-public class ReservationTerrain {
+@Table(name = "myreservation")
+public class ReservationTerrain implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date start;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime start;
+    
     public ReservationTerrain() {
 		super();
 	}
@@ -32,19 +38,19 @@ public class ReservationTerrain {
 		this.id = id;
 	}
 
-	public Date getStart() {
+	public LocalDateTime getStart() {
 		return start;
 	}
 
-	public void setStart(Date start) {
+	public void setStart(LocalDateTime start) {
 		this.start = start;
 	}
 
-	public Date getEnd() {
+	public LocalDateTime getEnd() {
 		return end;
 	}
 
-	public void setEnd(Date end) {
+	public void setEnd(LocalDateTime end) {
 		this.end = end;
 	}
 
@@ -128,13 +134,7 @@ public class ReservationTerrain {
 		this.secondarycolor = secondarycolor;
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+	
 
 	public Long getFieldId() {
 		return fieldId;
@@ -168,7 +168,7 @@ public class ReservationTerrain {
 		this.field = field;
 	}
 
-	public ReservationTerrain(Long id, Date start, Date end, String title, Double total, String description,
+	public ReservationTerrain(Long id, LocalDateTime start, LocalDateTime end, String title, Double total, String description,
 			String path, String imageURL, String address, String startProgram, String endProgram, String primarycolor,
 			String secondarycolor, Customer customer, Long fieldId, PaymentTerrain paymentTerrain, Receipt receipt,
 			Field field) {
@@ -193,8 +193,34 @@ public class ReservationTerrain {
 		this.field = field;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-    private Date end ;
+	public ReservationTerrain(Long id, LocalDateTime start, LocalDateTime end, String title, Double total,
+			String description, String path, String imageURL, String address, String startProgram, String endProgram,
+			String primarycolor, String secondarycolor, Customer customer, User user, Long fieldId,
+			PaymentTerrain paymentTerrain, Receipt receipt, Field field) {
+		super();
+		this.id = id;
+		this.start = start;
+		this.end = end;
+		this.title = title;
+		this.total = total;
+		this.description = description;
+		this.path = path;
+		this.imageURL = imageURL;
+		this.address = address;
+		this.startProgram = startProgram;
+		this.endProgram = endProgram;
+		this.primarycolor = primarycolor;
+		this.secondarycolor = secondarycolor;
+		this.customer = customer;
+		this.user = user;
+		this.fieldId = fieldId;
+		this.paymentTerrain = paymentTerrain;
+		this.receipt = receipt;
+		this.field = field;
+	}
+
+	//@Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime end ;
     private String title ;
     private Double total ;
 
@@ -213,6 +239,25 @@ public class ReservationTerrain {
     @ManyToOne
     @JoinColumn(name = "CustomerId", insertable = true, updatable = true)
     private Customer customer;
+    
+    public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+    
+	@JsonIgnore
+	@ManyToOne
+    @JoinColumn(name = "UserID", insertable = true, updatable = true)
+    private User user;
+	
+	
     private Long fieldId;
     @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
     private PaymentTerrain paymentTerrain;

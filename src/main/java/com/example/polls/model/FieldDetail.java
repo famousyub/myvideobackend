@@ -7,13 +7,16 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+
+import java.io.Serializable;
+
 import javax.persistence.*;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "fielddetail")
-public class FieldDetail {
+public class FieldDetail implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

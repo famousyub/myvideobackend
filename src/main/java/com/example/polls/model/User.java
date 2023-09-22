@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -57,10 +58,19 @@ public class User extends DateAudit {
     @Column(name="image_profile",nullable = true,updatable = true)
     private byte[] imageprofile ;
     
-    
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<ReservationTerrain> reservations;
 
     public String getPhonenumber() {
 		return phonenumber;
+	}
+
+	public List<ReservationTerrain> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<ReservationTerrain> reservations) {
+		this.reservations = reservations;
 	}
 
 	public void setPhonenumber(String phonenumber) {

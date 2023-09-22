@@ -10,6 +10,7 @@ import lombok.ToString;
 import javax.persistence.*;
 
 import com.example.polls.model.audit.UserDateAudit;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -92,7 +93,8 @@ public class Field extends UserDateAudit {
     private Double pricehour ;
 
     private String pathurl ;
-
+    
+    @JsonIgnore
     @OneToOne(mappedBy = "field", cascade = CascadeType.ALL)
     private FieldDetail detail;
 
