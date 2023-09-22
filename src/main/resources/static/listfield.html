@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Field List</title>
+</head>
+<body>
+    <h2>Field List</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Field ID</th>
+                <th>Title</th>
+                <th>Image URL</th>
+                <th>Price per Hour</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="field : ${fields}">
+                <td th:text="${field.id}"></td>
+                <td th:text="${field.title}"></td>
+                <td th:text="${field.imageUrl}"></td>
+                <td th:text="${field.pricehour}"></td>
+                <td>
+                    <a th:href="@{/fields/showFormForUpdate(fieldId=${field.id})}">Edit</a>
+                    |
+                    <a th:href="@{/fields/showFormForDelete(fieldId=${field.id})}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="@{/fields/showFormForAdd}">Add Field</a>
+</body>
+</html>

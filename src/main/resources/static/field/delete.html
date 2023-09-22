@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Field</title>
+</head>
+<body>
+    <h2>Delete Field</h2>
+    <form th:action="@{/fields/deleteField}" method="post">
+        <input type="hidden" th:field="*{id}" th:value="${field.id}">
+        <p th:text="'Are you sure you want to delete field with ID ' + ${field.id} + ' ?'"></p>
+        <button type="submit">Delete</button>
+    </form>
+</body>
+</html>

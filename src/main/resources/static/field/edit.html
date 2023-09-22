@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Field</title>
+</head>
+<body>
+    <h2>Edit Field</h2>
+    <form th:action="@{/fields/updateField}" th:object="${field}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <input type="text" th:field="*{title}" placeholder="Title"><br>
+        <input type="text" th:field="*{imageUrl}" placeholder="Image URL"><br>
+        <input type="text" th:field="*{pricehour}" placeholder="Price per Hour"><br>
+        <input type="text" th:field="*{pathurl}" placeholder="Path URL"><br>
+        
+        <!-- FieldDetail properties -->
+        <input type="text" th:field="*{detail.description}" placeholder="Description"><br>
+        <input type="text" th:field="*{detail.address}" placeholder="Address"><br>
+        <input type="text" th:field="*{detail.startProgram}" placeholder="Start Program"><br>
+        <input type="text" th:field="*{detail.endProgram}" placeholder="End Program"><br>
+        
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>

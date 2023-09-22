@@ -82,6 +82,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js")
                         .permitAll()
                         .antMatchers("/myvideo/**")
+                        
+                        .permitAll()
+                        .antMatchers("/api/field/**")
                         .permitAll()
                         .antMatchers("/**")
                         .permitAll()
