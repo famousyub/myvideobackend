@@ -32,6 +32,17 @@ public class User extends DateAudit {
     @NotBlank
     @Size(max = 40)
     private String name;
+    
+    public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	@Transient
+    private String token;
 
     @NotBlank
     @Size(max = 15)

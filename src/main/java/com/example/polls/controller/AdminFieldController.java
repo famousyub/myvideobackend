@@ -35,15 +35,44 @@ public class AdminFieldController {
 	    public String showFormForAdd(Model model) {
 	        Field field = new Field();
 	        FieldDetail fieldDetail = new FieldDetail();
-	        field.setDetail(fieldDetail);
+	        
+	        
+	        
 	        model.addAttribute("field", field);
+	        
+            fieldDetail.setField(field);
+	        
+	        field.setDetail(fieldDetail);
+	        
 	        return "field/create";
 	    }
 
 	    @PostMapping("/saveField")
-	    public String saveField(@ModelAttribute("field") Field field) {
-	        fieldDetailRepository.save(field.getDetail());
-	        fieldRepository.save(field);
+	    public String saveField(@ModelAttribute("field") FiledRequest filed) {
+//	        fieldDetailRepository.save(field.getDetail());
+//	        FieldDetail fd = field.getDetail();
+//	        fd.setField(field);
+//	        fieldDetailRepository.save(fd);
+//	        fieldRepository.save(field);
+	    	
+	    	Field f = new Field();
+			FieldDetail fd = new FieldDetail();
+			f.setImageUrl(filed.getImageUrl());
+			
+			f.setPathurl(filed.getPathurl());
+			f.setPricehour(filed.getPricehour());
+			f.setTitle(filed.getTitle());
+			
+			
+			fd.setAddress(filed.getAddress());
+			fd.setDescription(filed.getDescription());
+			fd.setEndProgram(filed.getEndProgram());
+			fd.setStartProgram(filed.getStartProgram());
+			fd.setField(f);
+			fieldDetailRepository.save(fd);
+			f.setDetail(fd);
+			fieldRepository.save(f);
+			
 	        return "redirect:/fields/list";
 	    }
 
